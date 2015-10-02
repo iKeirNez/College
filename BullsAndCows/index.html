@@ -122,7 +122,7 @@
          * @param {undefined|string} input
          * @returns {boolean} true if the input is valid, false otherwise
          */
-        function isValidNumber(input) { // todo find a better name for this, it's misleading
+        function isInputValid(input) {
             return input !== undefined && input !== null && input.length == CHARACTERS && !isNaN(input) && !hasDuplicateCharacters(input);
         }
 
@@ -177,7 +177,7 @@
             var errorMessage = document.getElementById("errorMessage");
 
 			if (checkUnsolved()) {
-				if (isValidNumber(guess)) {
+				if (isInputValid(guess)) {
 					errorMessage.style.visibility = "hidden";
 					document.getElementById("guessInput").value = "";
 
@@ -249,7 +249,7 @@
                 resetGame();
                 var newSecret = getSecretFromUser();
 
-                if (isValidNumber(newSecret)) {
+                if (isInputValid(newSecret)) {
                     secret = newSecret;
                     showingSecret = false;
                     refreshSecretText();
