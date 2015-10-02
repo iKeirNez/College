@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script>
+			function min(number1, number2) {
+				return number1 < number2 ? number1 : number2;
+			}
+
+			function min3(number1, number2, number3) {
+				return min(min(number1, number2), number3);
+			}
+
+			function minInf() {
+				if (arguments.length < 1) {
+					throw new RangeError("There must be at least 1 number.");
+				}
+
+				var lowest = arguments[0];
+
+				for (var i = 0; i < arguments.length; i++) {
+					var argument = arguments[i];
+
+					if (argument < lowest) {
+						lowest = argument;
+					}
+				}
+
+				return lowest;
+			}
+		</script>
+	</head>
+
+	<body>
+		<script>
+			document.writeln("Min (10, 50): " + min(10, 50) + "<br \>");
+			document.writeln("Min3 (10, 50, 5): " + min3(10, 50, 5) + "<br \>");
+			document.writeln("MinInf (5, 8, -4, 80, 90, 6515615, -60): " + minInf(5, 8, -4, 80, 90, 6515615, -60))
+		</script>
+	</body>
+</html>

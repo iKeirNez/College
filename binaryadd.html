@@ -1,0 +1,154 @@
+<html>
+<head>
+    <title>Binary Add</title>
+    <script>
+        function getNumberFromUser() {
+            var input;
+            console.info("Retrieving number from user.");
+
+            while (input === undefined || input === '' || isNaN(input) || input % 1 != 0 || !isNumberInRange(0, 255, input)) {
+                console.info("Previous input value: " + input);
+                input = window.prompt("Please enter a number between 0-255.");
+                console.info("User inputted: " + input);
+            }
+
+            return input;
+        }
+
+        function isNumberInRange(lower, upper, number) {
+            return number >= lower && number <= upper;
+        }
+
+        function isNumberPowerOf(number, power) {
+            while (number % power == 0) {
+                number = number / power;
+            }
+
+            return number == 1;
+        }
+
+        function convertToBaseArray(number, base, outputLength) {
+            if (!isNumberPowerOf(outputLength, 8)) {
+                throw new Error("outputLength must be a power of 8.");
+            }
+
+            var outputArray = new Array(8);
+            var outputCounter = 0;
+
+            var bitSize = 0;
+            var largestBitValue;
+
+            do {
+                bitSize += 8;
+                largestBitValue = Math.pow(base, bitSize) - 1;
+            } while (largestBitValue < number);
+
+            for (var column = Math.pow(base, bitSize - 1); column >= 1; column /= base) {
+                var divided = number / column;
+
+                for (var i = base - 1; i >= 0; i--) {
+                    if (divided >= i) {
+                        outputArray[outputCounter++] = i;
+                        number -= column * i;
+                        divided -= i;
+                        break;
+                    }
+                }
+            }
+
+            return outputArray;
+        }
+
+        function addBinaryArrays(arrayOfBinaryArrays) {
+            if (arrayOfBinaryArrays.length < 2) {
+                throw new Error("There must be at least 2 binary arrays passed to this method.");
+            }
+
+            var output = arrayOfBinaryArrays[0];
+
+            for (var i = 1; i < arrayOfBinaryArrays.length; i++) {
+                var binaryArray = arrayOfBinaryArrays[i];
+
+                if (output.length != binaryArray.length) {
+                    throw new Error("Binary array lengths do not match.");
+                }
+
+                var carry = false;
+
+                // add this array with the output array
+                for (var x = output.length - 1; x >= 0; x--) {
+                    var value1 = parseInt(output[x]);
+                    var value2 = parseInt(binaryArray[x]);
+
+                    var added = value1 + value2 + (carry ? 1 : 0);
+                    carry = false;
+                    binaryArray[x] = added == 3 || added == 1 ? 1 : 0;
+
+                    if (added > 1) {
+                        if (x == 0) {
+                            console.info("Overflow.");
+                            binaryArray.unshift(1);
+                        } else {
+                            carry = true;
+                        }
+                    }
+                }
+            }
+
+            return binaryArray;
+        }
+    </script>
+</head>
+<body>
+<!-- Table which will hold all entered and calculated values displaying them to the user -->
+<table border="1">
+    <tr>
+        <th>Numbers</th>
+        <th>Binary</th>
+        <th>Binary Answer</th>
+    </tr>
+    <tr>
+        <td>
+            <p id="number0"></p>
+        </td>
+        <td>
+            <p id="number0-binary"></p>
+        </td>
+        <td rowspan="2" valign="middle">
+            <p id="binary-answer" align="center"></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p id="number1"></p>
+        </td>
+        <td>
+            <p id="number1-binary"></p>
+        </td>
+    </tr>
+</table>
+
+<script>
+    console.info("Starting up...");
+    var amountOfNumbers = 2;
+    var arrayOfBinaryArrays = new Array(amountOfNumbers);
+
+    console.info("Retrieving ", amountOfNumbers, " numbers from user.");
+
+    for (var i = 0; i < amountOfNumbers; i++) {
+        var number = getNumberFromUser();
+        var binaryArray = convertToBaseArray(parseInt(number), 2, 8);
+        arrayOfBinaryArrays[i] = binaryArray;
+        console.info("Binary array #", i, ": ", binaryArray.toString());
+
+        // display the entered number and it's binary value to the user
+        document.getElementById("number" + i).innerHTML = number;
+        document.getElementById("number" + i + "-binary").innerHTML = binaryArray.join("")
+    }
+
+    var binaryAnswer = addBinaryArrays(arrayOfBinaryArrays);
+    document.getElementById("binary-answer").innerHTML = binaryAnswer.join(""); // display the binary answer to the user
+</script>
+</body>
+</html>

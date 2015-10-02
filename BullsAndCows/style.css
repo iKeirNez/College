@@ -1,0 +1,114 @@
+/* *cries in french at monstrosity* */
+
+body {
+    text-align: center;
+}
+
+.header {
+    border-bottom: thin black solid;
+    height: 15%;
+}
+
+.header h1, .header p {
+    /* Make header compact */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.header div {
+    /** Vertically align divs to middle **/
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer {
+    height: 40px;
+    width: 100%;
+    margin-top: 20px;
+    border-top: thin black solid;
+    text-align: center;
+
+    /* Put footer at bottom of div */
+    position: absolute;
+    bottom: 0;
+}
+
+.outerContainer {
+    height: auto;
+    min-height: 98vh;
+    width: 60%;
+
+    text-align: center;
+    display: inline-block;
+    border: thin black solid;
+    margin: 0;
+
+    /* Allows footer to go to bottom */
+    position: relative;
+}
+
+.innerContainer {
+    height: auto;
+    min-height: 81%;
+    width: calc((100% / 3) - (5% * 2));
+
+    display: inherit;
+    padding: 5px 5px 50px; /* 50px prevents overlapping with footer */
+    vertical-align: top;
+}
+
+.subContainer h3 {
+    -webkit-margin-before: 1px;
+}
+
+#guessEntryContainer h3 {
+    -webkit-margin-after: 1px;
+}
+
+.subContainer, .columnSpacer {
+    display: inline-block;
+}
+
+.subContainer {
+    height: auto;
+    width: 100%;
+}
+
+.additionalSettingsContainer {
+    text-align: left;
+    padding: 5px;
+}
+
+.guessInput {
+    width: 45%;
+}
+
+.columnSpacer {
+    width: 5%;
+    height: inherit;
+}
+
+#errorMessage {
+    color: red;
+    visibility: hidden;
+}
+
+#computerGuessButton {
+    width: 120px;
+    margin-top: 10px;
+}
+
+#outputTable {
+    width: 100%;
+}
+
+a, .clickable {
+    cursor: pointer;
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover, .clickable:hover {
+    text-decoration: underline;
+}

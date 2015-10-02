@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>While Prefix</title>
+    </head>
+    <body>
+        <script>
+            var input = window.prompt("Please enter some text.");
+
+            while (input.length < 8) {
+                input = "0" + input;
+            }
+
+            document.writeln(input);
+        </script>
+    </body>
+</html>

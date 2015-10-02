@@ -1,0 +1,33 @@
+<html>
+	<body>
+		<script>
+			var number = parseInt(window.prompt("Please enter a number."));
+			var bits = 0;
+			var bitsHighestNumber;
+			var binaryOutput = "";
+			
+			do {
+				bits += 8
+				bitsHighestNumber = Math.pow(3, bits) - 1;
+			} while (bitsHighestNumber < number);
+			
+			for (var column = Math.pow(3, bits - 1); column >= 1; column /= 3) {
+				var divided = number / column;
+				
+				if (divided >= 2) {
+					binaryOutput = binaryOutput + "2";
+					number -= column * 2;
+					divided -= 2;
+				} else if (divided >= 1) {
+					binaryOutput = binaryOutput + "1";
+					number -= column;
+					divided -= 1;
+				} else {
+					binaryOutput = binaryOutput + "0";
+				}
+			}
+			
+			document.writeln(binaryOutput, " (", bits, " bits)");
+		</script>
+	</body>
+</html>
