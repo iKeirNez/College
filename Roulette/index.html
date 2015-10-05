@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Roulette Slots</title>
+        <script>
+            /**
+             * Gets the string result of a slot.
+             *
+             * @param {number} slot the slot to get the result of
+             * @returns {string} the string result
+             */
+            function getResult(slot) {
+                if (!inRange(slot, 0, 36)) {
+                    return "Invalid";
+                } else if (slot == 0) {
+                    return "Zero";
+                } else if (isEven(slot)) {
+                    return "Even";
+                } else {
+                    return "Odd";
+                }
+            }
+
+            /**
+             * Checks if a number is whole (no decimal places).
+             *
+             * @param {number} number the number to check if whole
+             * @returns {boolean} true if the number is whole, false otherwise
+             */
+            function isWholeNumber(number) {
+                return number % 1 == 1;
+            }
+
+            /**
+             * Checks if the number is in range (valid).
+             *
+             * @param {number} number the slot to check if valid
+             * @param {number} lowerLimit the lower limit in the range
+             * @param {number} upperLimit the upper limit in the range
+             * @returns {boolean} true if number is in range, false otherwise
+             */
+            function inRange(number, lowerLimit, upperLimit) {
+                return number >= lowerLimit && number <= upperLimit;
+            }
+
+            /**
+             * Checks if a number is even (divisible by 2).
+             *
+             * @param {number} number the number to check if even
+             * @returns {boolean} true if the number is even, false otherwise
+             */
+            function isEven(number) {
+                return number % 2 == 0;
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            // Get an input from the user, get the result of the number and output it
+            document.write(getResult(window.prompt("Please enter a number.")));
+        </script>
+    </body>
+</html>
