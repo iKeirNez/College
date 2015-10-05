@@ -1,6 +1,6 @@
-const CHARACTERS = 4;
+const SECRET_LENGTH = 4;
 
-var secret = generateSecret(CHARACTERS);
+var secret = generateSecret(SECRET_LENGTH);
 var guessIndex = 1;
 
 var solved = false;
@@ -34,7 +34,7 @@ function generateSecret(length) {
  * @returns {string} the valid secret
  */
 function getSecretFromUser() {
-    return window.prompt("Please enter a " + CHARACTERS + " digit number (no duplicate digits).");
+    return window.prompt("Please enter a " + SECRET_LENGTH + " digit number (no duplicate digits).");
 }
 
 /**
@@ -47,7 +47,7 @@ function getSecretFromUser() {
 function getBulls(secret, guess) {
     var bulls = 0;
 
-    for (var i = 0; i < CHARACTERS; i++) {
+    for (var i = 0; i < SECRET_LENGTH; i++) {
         var secretChar = secret.charAt(i);
         var guessChar = guess.charAt(i);
 
@@ -69,10 +69,10 @@ function getBulls(secret, guess) {
 function getCows(secret, guess) {
     var cows = 0;
 
-    for (var i = 0; i < CHARACTERS; i++) {
+    for (var i = 0; i < SECRET_LENGTH; i++) {
         var secretChar = secret.charAt(i);
 
-        for (var x = 0; x < CHARACTERS; x++) {
+        for (var x = 0; x < SECRET_LENGTH; x++) {
             if (i != x) { // if true this is a bull
                 var guessChar = guess.charAt(x);
 
@@ -118,7 +118,7 @@ function generateRandomNumber(min, max) {
  * @returns {boolean} true if the input is valid, false otherwise
  */
 function isInputValid(input) {
-    return input !== undefined && input !== null && input.length == CHARACTERS && !isNaN(input) && !hasDuplicateCharacters(input);
+    return input !== undefined && input !== null && input.length == SECRET_LENGTH && !isNaN(input) && !hasDuplicateCharacters(input);
 }
 
 /**
@@ -324,7 +324,7 @@ function generateCombinationArray() {
 
     for (var i = 123; i < 9876; i++) {
         var numberString = i.toString();
-        var leadingZerosRequired = CHARACTERS - numberString.length;
+        var leadingZerosRequired = SECRET_LENGTH - numberString.length;
 
         for (var x = 0; x < leadingZerosRequired; x++) {
             numberString = "0" + numberString;
@@ -352,7 +352,7 @@ function makeComputerGuess(guess) { // returns false until answer is found
     displayGuess(guess, bulls, cows);
     guessIndex++;
 
-    if (bulls == CHARACTERS) {
+    if (bulls == SECRET_LENGTH) {
         window.alert("Secret is: " + guess + ", took " + (guessIndex - 1) + " guesses.");
         solved = true;
         computerGuessQueue = []; // we don't need to store this anymore
