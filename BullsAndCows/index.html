@@ -2,7 +2,7 @@
 <head>
     <title>Bulls and Cows</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="javascript">
+    <script>
         const CHARACTERS = 4;
 
         var secret = generateSecret(CHARACTERS);
@@ -185,11 +185,11 @@
 					var cows = getCows(secret, guess);
 
 					displayGuess(guess, bulls, cows);
-					guess++;
+					guessIndex++;
 
 					if (secret == guess) {
 						if (document.getElementById("rickRoll").checked) { // special surprise for winning ;)
-							window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+							window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 						}
 
 						solved = true;
@@ -234,6 +234,10 @@
             refreshSecretText();
         }
 
+        /**
+         * Updates the secret text to either the secret value or the asterisk value.
+         * Also sets the show/hide button to the correct postion.
+         */
         function refreshSecretText() {
             if (showingSecret) {
                 document.getElementById("secret").innerHTML = secret;
@@ -244,6 +248,9 @@
             }
         }
 
+        /**
+         * Allows the secret to be modified, resetting the game.
+         */
         function editSecret() {
             if (window.confirm("This will cause all game progress to reset, are you sure?")) {
                 resetGame();
@@ -259,6 +266,9 @@
             }
         }
 
+        /**
+         * Resets the game to it's default state.
+         */
         function resetGame() {
             resetGuessTable();
             computerGuessQueue = generateCombinationArray();
@@ -537,14 +547,8 @@
         <div class="subContainer">
             <h3>Secret</h3>
 
-            <span id="secret">
-                    <script type="javascript"> <!-- Initialise secret -->
-                    document.write(getAsterisks(secret));
-                    </script>
-            </span> - <span id="secretDisplayToggle" class="clickable" onclick="toggleSecret()">show</span>, <span id="secretEdit" class="clickable" onclick="editSecret()">edit</span>
-
+            <span id="secret"></span> - <span id="secretDisplayToggle" class="clickable" onclick="toggleSecret()"></span>, <span id="secretEdit" class="clickable" onclick="editSecret()">edit</span>
             <br />
-
             <input id="computerGuessButton" type="button" value="Computer Guess" onclick="doComputerGuess()" />
         </div>
     </div>
@@ -553,5 +557,8 @@
         v1.5<br />Keir Nellyer, First Year HND Software Development, Fife College
     </div>
 </div>
+<script>
+    refreshSecretText();
+</script>
 </body>
 </html>
